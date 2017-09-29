@@ -31,6 +31,8 @@
     //获取本地文件路径
     self.fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"李碧华佳句赏析.doc" ofType:nil]];
     [self presentViewController:self.previewController animated:YES completion:nil];
+    //刷新界面,如果不刷新的话，不重新走一遍代理方法，返回的url还是上一次的url
+    [self.previewController refreshCurrentPreviewItem];
 }
 
 //预览网络文件
@@ -49,6 +51,8 @@
         NSURL *url = [documentsDirectoryURL URLByAppendingPathComponent:fileName];
         self.fileURL = url;
         [self presentViewController:self.previewController animated:YES completion:nil];
+        //刷新界面,如果不刷新的话，不重新走一遍代理方法，返回的url还是上一次的url
+        [self.previewController refreshCurrentPreviewItem];
     }else {
         [SVProgressHUD showWithStatus:@"下载中"];
         NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
@@ -61,6 +65,8 @@
             [SVProgressHUD dismiss];
             self.fileURL = filePath;
             [self presentViewController:self.previewController animated:YES completion:nil];
+            //刷新界面,如果不刷新的话，不重新走一遍代理方法，返回的url还是上一次的url
+            [self.previewController refreshCurrentPreviewItem];
         }];
         [downloadTask resume];
     }
