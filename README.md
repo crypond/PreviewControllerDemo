@@ -1,0 +1,2 @@
+# PreviewControllerDemo
+使用QLPreviewController预览本地和网络文件
